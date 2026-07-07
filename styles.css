@@ -48,7 +48,7 @@ html {
 body {
   min-height: 100vh;
   margin: 0;
-  overflow-x: hidden;
+  overflow: hidden;
   background-color: var(--color-background);
   color: var(--color-text);
   font-family: var(--font-main);
@@ -147,8 +147,8 @@ a {
 .site-main {
   position: relative;
   z-index: 1;
-  min-height: 100svh;
-  min-height: 100vh;
+  height: 100vh;
+  height: 100svh;
   padding: var(--page-padding);
   display: grid;
   place-items: center;
