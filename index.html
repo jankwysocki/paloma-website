@@ -26,28 +26,15 @@
       muted
       loop
       playsinline
-      preload="auto"
+      preload="none"
       poster="assets/background/paloma-background-desktop-poster.webp"
-    >
-      <source
-        src="assets/background/paloma-background-mobile.webm"
-        type="video/webm"
-        media="(max-width: 768px)"
-      />
-      <source
-        src="assets/background/paloma-background-mobile.mp4"
-        type="video/mp4"
-        media="(max-width: 768px)"
-      />
-      <source
-        src="assets/background/paloma-background-desktop.webm"
-        type="video/webm"
-      />
-      <source
-        src="assets/background/paloma-background-desktop.mp4"
-        type="video/mp4"
-      />
-    </video>
+      data-desktop-webm="assets/background/paloma-background-desktop.webm"
+      data-desktop-mp4="assets/background/paloma-background-desktop.mp4"
+      data-mobile-webm="assets/background/paloma-background-mobile.webm"
+      data-mobile-mp4="assets/background/paloma-background-mobile.mp4"
+      data-desktop-poster="assets/background/paloma-background-desktop-poster.webp"
+      data-mobile-poster="assets/background/paloma-background-mobile-poster.webp"
+    ></video>
   </div>
 
   <header class="site-header">
