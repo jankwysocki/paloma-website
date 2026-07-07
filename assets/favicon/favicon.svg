@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" style="max-height: 500px" xml:space="preserve" viewBox="0 82.64214046822742 206.325 264.45484949832775" width="206.325" height="264.45484949832775"><g transform="matrix(0.995777,0,0,0.594276,-1026.646115,-235.333333)" id="Artboard1">
+        <rect style="fill:none;" height="594" width="1184" y="396" x="1031"></rect>
+        <g transform="matrix(1,0,0,1,-4.535344,1.353363)">
+            <g transform="matrix(4.067221,0,0,6.815091,1125.966068,860.283335)">
+                <path style="fill:black;fill-rule:nonzero;" d="M0,-36.574C-8.923,-35.845 -16.087,-31.511 -15.127,-21.597C-13.662,-6.482 20.812,-6.011 22.223,-22.065C23.346,-34.846 9.965,-37.388 0,-36.574M-12.327,-45.043L-14.426,-37.344C-3.619,-51.26 20.126,-48.041 24.404,-30.07C30.184,-5.785 4.297,8.643 -13.034,-8.289L-14.893,-10.511C-14.089,-2.932 -12.149,5.08 -7.077,10.957C-6.193,11.981 -4.83,12.951 -4.037,13.985C-3.857,14.22 -3.587,14.279 -3.689,14.686L-18.164,14.686L-18.164,-45.043L-12.327,-45.043Z"></path>
+            </g>
+        </g>
+    </g><style>@media (prefers-color-scheme: light) { :root { filter: none; } }
+@media (prefers-color-scheme: dark) { :root { filter: invert(100%); } }
+</style></svg>
