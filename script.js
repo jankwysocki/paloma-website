@@ -154,11 +154,24 @@ function setupBackgroundVideo() {
     mediaQuery.addListener(loadCorrectVideo);
   }
 
+  function resumeBackgroundVideo() {
+    if (document.hidden || reducedMotionQuery.matches) {
+      return;
+    }
+
+    window.requestAnimationFrame(() => {
+      playBackgroundVideo();
+    });
+  }
+
   document.addEventListener("visibilitychange", () => {
     if (!document.hidden) {
-      playBackgroundVideo();
+      resumeBackgroundVideo();
     }
   });
+
+  window.addEventListener("pageshow", resumeBackgroundVideo);
+  window.addEventListener("focus", resumeBackgroundVideo);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
