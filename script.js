@@ -79,7 +79,23 @@ function setupBackgroundVideo() {
   }
 
   const mediaQuery = window.matchMedia("(max-width: 768px)");
-  const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const reducedMotionQuery = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  );
+
+  function playBackgroundVideo() {
+    if (document.hidden || reducedMotionQuery.matches) {
+      return;
+    }
+
+    const playPromise = video.play();
+
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // If playback is blocked, the poster fallback remains visible.
+      });
+    }
+  }
 
   function loadCorrectVideo() {
     const isMobile = mediaQuery.matches;
@@ -127,13 +143,7 @@ function setupBackgroundVideo() {
     video.preload = "metadata";
     video.load();
 
-    const playPromise = video.play();
-
-    if (playPromise !== undefined) {
-      playPromise.catch(() => {
-        // If autoplay fails, the CSS poster fallback remains visible.
-      });
-    }
+    playBackgroundVideo();
   }
 
   loadCorrectVideo();
@@ -143,6 +153,12 @@ function setupBackgroundVideo() {
   } else {
     mediaQuery.addListener(loadCorrectVideo);
   }
+
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) {
+      playBackgroundVideo();
+    }
+  });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
