@@ -129,10 +129,15 @@ function setupBackgroundVideo() {
       return;
     }
 
+    const webmSource = document.createElement("source");
+    webmSource.src = webm;
+    webmSource.type = "video/webm";
+
     const mp4Source = document.createElement("source");
     mp4Source.src = mp4;
     mp4Source.type = "video/mp4";
 
+    video.appendChild(webmSource);
     video.appendChild(mp4Source);
 
     video.preload = "metadata";
