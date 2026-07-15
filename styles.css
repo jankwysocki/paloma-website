@@ -91,6 +91,15 @@ a {
   object-position: center center;
 }
 
+.background-video::-webkit-media-controls {
+  display: none !important;
+}
+
+.background-video::-webkit-media-controls-start-playback-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
+
 .site-header {
   position: fixed;
   top: 0;
