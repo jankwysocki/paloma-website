@@ -83,13 +83,6 @@ function setupBackgroundVideo() {
     "(prefers-reduced-motion: reduce)"
   );
 
-  video.muted = true;
-  video.defaultMuted = true;
-  video.playsInline = true;
-  video.setAttribute("muted", "");
-  video.setAttribute("playsinline", "");
-  video.setAttribute("webkit-playsinline", "");
-
   function playBackgroundVideo() {
     if (document.hidden || reducedMotionQuery.matches) {
       return;
@@ -98,8 +91,8 @@ function setupBackgroundVideo() {
     const playPromise = video.play();
 
     if (playPromise !== undefined) {
-      playPromise.catch((error) => {
-        console.warn("Background video autoplay was blocked:", error);
+      playPromise.catch(() => {
+        // If playback is blocked, the poster fallback remains visible.
       });
     }
   }
@@ -109,7 +102,6 @@ function setupBackgroundVideo() {
     const mode = isMobile ? "mobile" : "desktop";
 
     if (video.dataset.currentMode === mode) {
-      playBackgroundVideo();
       return;
     }
 
@@ -128,34 +120,30 @@ function setupBackgroundVideo() {
       : video.dataset.desktopMp4;
 
     video.pause();
-    video.removeAttribute("src");
-    video.replaceChildren();
+    video.innerHTML = "";
     video.poster = poster;
 
     if (reducedMotionQuery.matches) {
+      video.removeAttribute("src");
       video.load();
       return;
     }
-
-    const mp4Source = document.createElement("source");
-    mp4Source.src = mp4;
-    mp4Source.type = "video/mp4";
 
     const webmSource = document.createElement("source");
     webmSource.src = webm;
     webmSource.type = "video/webm";
 
-    video.appendChild(mp4Source);
-    video.appendChild(webmSource);
+    const mp4Source = document.createElement("source");
+    mp4Source.src = mp4;
+    mp4Source.type = "video/mp4";
 
-    video.preload = "auto";
+    video.appendChild(webmSource);
+    video.appendChild(mp4Source);
+
+    video.preload = "metadata";
     video.load();
 
     playBackgroundVideo();
-
-    video.addEventListener("canplay", playBackgroundVideo, {
-      once: true
-    });
   }
 
   loadCorrectVideo();
@@ -171,7 +159,9 @@ function setupBackgroundVideo() {
       return;
     }
 
-    window.requestAnimationFrame(playBackgroundVideo);
+    window.requestAnimationFrame(() => {
+      playBackgroundVideo();
+    });
   }
 
   document.addEventListener("visibilitychange", () => {

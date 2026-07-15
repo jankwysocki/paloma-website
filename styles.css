@@ -91,15 +91,6 @@ a {
   object-position: center center;
 }
 
-.background-video::-webkit-media-controls {
-  display: none !important;
-}
-
-.background-video::-webkit-media-controls-start-playback-button {
-  display: none !important;
-  -webkit-appearance: none;
-}
-
 .site-header {
   position: fixed;
   top: 0;
@@ -110,12 +101,6 @@ a {
   display: flex;
   justify-content: flex-end;
   pointer-events: none;
-}
-
-.site-title {
-  margin: 0;
-  font: inherit;
-  line-height: 0;
 }
 
 .language-switcher {

@@ -7,9 +7,6 @@
   <title>Paloma Nad Wisłą</title>
   <meta name="description" content="Paloma: bistro w Pawilonie Tańca" />
 
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://paloma.bar/">
-
   <link rel="icon" type="image/png" href="assets/favicon/favicon-96x96.png" sizes="96x96" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon/favicon.svg" />
   <link rel="shortcut icon" href="assets/favicon/favicon.ico" />
@@ -29,9 +26,7 @@
       muted
       loop
       playsinline
-      webkit-playsinline
-      disablepictureinpicture
-      preload="metadata"
+      preload="none"
       poster="assets/background/paloma-background-desktop-poster.webp"
       data-desktop-webm="assets/background/paloma-background-desktop.webm"
       data-desktop-mp4="assets/background/paloma-background-desktop.mp4"
@@ -68,23 +63,21 @@
 
   <main class="site-main">
     <div class="content-column">
-      <h1 class="site-title">
-        <picture>
-          <source srcset="assets/logo_paloma.svg" type="image/svg+xml" />
-          <img
-            class="logo"
-            src="assets/logo_paloma.png"
-            alt="Paloma"
-            width="420"
-            height="120"
-          />
-        </picture>
-      </h1>
+      <picture>
+        <source srcset="assets/logo_paloma.svg" type="image/svg+xml" />
+        <img
+          class="logo"
+          src="assets/logo_paloma.png"
+          alt="Paloma Nad Wisłą"
+          width="420"
+          height="120"
+        />
+      </picture>
 
       <nav class="main-links" aria-label="Main navigation">
         <a
           class="text-link"
-          href="files/paloma-menu.pdf"
+          href="assets/menu/paloma-menu.pdf"
           target="_blank"
           rel="noopener noreferrer"
           type="application/pdf"
