@@ -103,6 +103,12 @@ a {
   pointer-events: none;
 }
 
+.site-title {
+  margin: 0;
+  font: inherit;
+  line-height: 0;
+}
+
 .language-switcher {
   display: inline-flex;
   align-items: center;
