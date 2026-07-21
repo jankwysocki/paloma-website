@@ -83,8 +83,28 @@ function setupBackgroundVideo() {
     "(prefers-reduced-motion: reduce)"
   );
 
-  function playBackgroundVideo() {
-    if (document.hidden || reducedMotionQuery.matches) {
+  video.muted = true;
+  video.defaultMuted = true;
+  video.playsInline = true;
+
+  video.setAttribute("muted", "");
+  video.setAttribute("playsinline", "");
+  video.setAttribute("webkit-playsinline", "");
+
+  function stopDesktopVideo() {
+    video.pause();
+    video.removeAttribute("src");
+    video.replaceChildren();
+    video.removeAttribute("data-loaded");
+    video.load();
+  }
+
+  function playDesktopVideo() {
+    if (
+      mediaQuery.matches ||
+      document.hidden ||
+      reducedMotionQuery.matches
+    ) {
       return;
     }
 
@@ -92,86 +112,70 @@ function setupBackgroundVideo() {
 
     if (playPromise !== undefined) {
       playPromise.catch(() => {
-        // If playback is blocked, the poster fallback remains visible.
+        // The desktop poster remains visible if playback is unavailable.
       });
     }
   }
 
-  function loadCorrectVideo() {
-    const isMobile = mediaQuery.matches;
-    const mode = isMobile ? "mobile" : "desktop";
-
-    if (video.dataset.currentMode === mode) {
+  function loadDesktopVideo() {
+    if (mediaQuery.matches || reducedMotionQuery.matches) {
+      stopDesktopVideo();
       return;
     }
 
-    video.dataset.currentMode = mode;
-
-    const poster = isMobile
-      ? video.dataset.mobilePoster
-      : video.dataset.desktopPoster;
-
-    const webm = isMobile
-      ? video.dataset.mobileWebm
-      : video.dataset.desktopWebm;
-
-    const mp4 = isMobile
-      ? video.dataset.mobileMp4
-      : video.dataset.desktopMp4;
-
-    video.pause();
-    video.innerHTML = "";
-    video.poster = poster;
-
-    if (reducedMotionQuery.matches) {
-      video.removeAttribute("src");
-      video.load();
+    if (video.dataset.loaded === "true") {
+      playDesktopVideo();
       return;
     }
-
-    const webmSource = document.createElement("source");
-    webmSource.src = webm;
-    webmSource.type = "video/webm";
 
     const mp4Source = document.createElement("source");
-    mp4Source.src = mp4;
+    mp4Source.src = video.dataset.desktopMp4;
     mp4Source.type = "video/mp4";
 
-    video.appendChild(webmSource);
-    video.appendChild(mp4Source);
+    const webmSource = document.createElement("source");
+    webmSource.src = video.dataset.desktopWebm;
+    webmSource.type = "video/webm";
 
+    video.replaceChildren(mp4Source, webmSource);
+    video.poster = video.dataset.desktopPoster;
     video.preload = "metadata";
+    video.dataset.loaded = "true";
+
     video.load();
 
-    playBackgroundVideo();
+    video.addEventListener("canplay", playDesktopVideo, {
+      once: true
+    });
+
+    playDesktopVideo();
   }
 
-  loadCorrectVideo();
+  loadDesktopVideo();
 
   if (mediaQuery.addEventListener) {
-    mediaQuery.addEventListener("change", loadCorrectVideo);
+    mediaQuery.addEventListener("change", loadDesktopVideo);
+    reducedMotionQuery.addEventListener("change", loadDesktopVideo);
   } else {
-    mediaQuery.addListener(loadCorrectVideo);
+    mediaQuery.addListener(loadDesktopVideo);
+    reducedMotionQuery.addListener(loadDesktopVideo);
   }
 
-  function resumeBackgroundVideo() {
-    if (document.hidden || reducedMotionQuery.matches) {
+  function resumeDesktopVideo() {
+    if (mediaQuery.matches || reducedMotionQuery.matches) {
       return;
     }
 
-    window.requestAnimationFrame(() => {
-      playBackgroundVideo();
-    });
+    window.requestAnimationFrame(playDesktopVideo);
   }
 
   document.addEventListener("visibilitychange", () => {
     if (!document.hidden) {
-      resumeBackgroundVideo();
+      resumeDesktopVideo();
     }
   });
 
-  window.addEventListener("pageshow", resumeBackgroundVideo);
-  window.addEventListener("focus", resumeBackgroundVideo);
+  window.addEventListener("pageshow", resumeDesktopVideo);
+  window.addEventListener("focus", resumeDesktopVideo);
 }
 
 document.addEventListener("DOMContentLoaded", () => {

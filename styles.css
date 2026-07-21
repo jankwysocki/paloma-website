@@ -249,7 +249,13 @@ h3 {
 
 @media (max-width: 768px) {
   .site-background {
-    background-image: url("assets/background/paloma-background-mobile-poster.webp");
+    background-image:
+      url("assets/background/paloma-background-mobile.webp"),
+      url("assets/background/paloma-background-mobile-poster.webp");
+  }
+
+  .background-video {
+    display: none;
   }
 }
 
@@ -276,6 +282,12 @@ h3 {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .site-background {
+    background-image: url(
+      "assets/background/paloma-background-desktop-poster.webp"
+    );
+  }
+
   .background-video {
     display: none;
   }
@@ -287,5 +299,13 @@ h3 {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+  }
+}
+
+@media (max-width: 768px) and (prefers-reduced-motion: reduce) {
+  .site-background {
+    background-image: url(
+      "assets/background/paloma-background-mobile-poster.webp"
+    );
   }
 }
