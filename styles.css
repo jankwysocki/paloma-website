@@ -250,7 +250,7 @@ h3 {
 @media (max-width: 768px) {
   .site-background {
     background-image:
-      url("assets/background/paloma-background-mobile.webp"),
+      url("assets/background/paloma-background-mobile.avif"),
       url("assets/background/paloma-background-mobile-poster.webp");
   }
 
